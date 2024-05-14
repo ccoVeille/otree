@@ -5,6 +5,7 @@ edition = "2021"
 
 [dependencies]
 anyhow = "1.0.83"
+crossterm = "0.27.0"
 ratatui = "0.26.2"
 serde = { version = "1.0.201", features = ["derive"] }
 serde_json = { version = "1.0.117", features = ["preserve_order"] }

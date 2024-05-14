@@ -18,11 +18,11 @@ pub(super) fn to_tree(value: TomlValue) -> TreeValue {
         TomlValue::Float(f) => TreeValue::Number(f.to_string()),
         TomlValue::Boolean(b) => TreeValue::Bool(b),
         TomlValue::Array(arr) => {
-            let toml_str = toml::to_string_pretty(&arr).unwrap();
+            let toml_str = toml::to_string_pretty(&arr).unwrap_or_default();
             TreeValue::Array(arr.into_iter().map(Value::Toml).collect(), toml_str)
         }
         TomlValue::Table(table) => {
-            let toml_str = toml::to_string_pretty(&table).unwrap();
+            let toml_str = toml::to_string_pretty(&table).unwrap_or_default();
             TreeValue::Object(
                 table
                     .into_iter()

@@ -1,5 +1,15 @@
+[icons]
+str = "str"
+null = "null"
+number = "num"
+object = "obj"
+array = "arr"
+bool = "bool"
+
 [colors]
 tree_name = { fg = "", bg = "" }
-tree_type = { fg = "", bg = "" }
+tree_icon = { fg = "cyan", bg = "", bold = true, italic = true }
 tree_value = { fg = "dark_gray", bg = "" }
+tree_null = { fg = "dark_gray", bg = "", italic = true }
 tree_focus = { fg = "black", bg = "light_green", bold = true }
+tree_border = { fg = "", bg = "" }

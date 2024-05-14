@@ -64,7 +64,7 @@ pub struct Tree<'a> {
 }
 
 impl<'a> Tree<'a> {
-    fn parse(cfg: &'a Config, data: &str, content_type: Option<ContentType>) -> Result<Self> {
+    pub fn parse(cfg: &'a Config, data: &str, content_type: Option<ContentType>) -> Result<Self> {
         let value: TreeValue = Self::parse_value(data, content_type)?.into();
         let mut details: HashMap<PathBuf, String> = HashMap::new();
 
@@ -134,7 +134,7 @@ impl<'a> Tree<'a> {
                 (cfg.icons.number.as_str(), Cow::Owned(number), detail, None)
             }
             TreeValue::Bool(b) => (
-                cfg.icons.str.as_str(),
+                cfg.icons.bool.as_str(),
                 Cow::Owned(b.to_string()),
                 b.to_string(),
                 None,
@@ -162,7 +162,7 @@ impl<'a> Tree<'a> {
                         Self::convert_tree(cfg, child_path, item.into(), details)
                     })
                     .collect();
-                (cfg.icons.array.as_str(), value, detail, Some(children))
+                (cfg.icons.object.as_str(), value, detail, Some(children))
             }
         };
 

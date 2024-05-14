@@ -1,2 +1,2 @@
-mod tree_overview;
-mod value_block;
+pub mod tree_overview;
+pub mod value_block;

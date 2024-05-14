@@ -1,12 +1,24 @@
-use anyhow::{Context, Result};
+use anyhow::{bail, Context, Result};
+use serde::Deserialize;
 use serde_yaml::Value as YamlValue;
 
 use super::{TreeValue, Value};
 
 #[inline(always)]
 pub(super) fn parse(data: &str) -> Result<Value> {
-    let value = serde_yaml::from_str(data).context("parse yaml")?;
-    Ok(Value::Yaml(value))
+    let mut values = Vec::with_capacity(1);
+    for document in serde_yaml::Deserializer::from_str(data) {
+        let value = YamlValue::deserialize(document).context("parse yaml")?;
+        values.push(value);
+    }
+    if values.is_empty() {
+        bail!("no document in yaml data");
+    }
+    if values.len() == 1 {
+        return Ok(Value::Yaml(values.into_iter().next().unwrap()));
+    }
+
+    Ok(Value::Yaml(YamlValue::Sequence(values)))
 }
 
 #[inline(always)]
